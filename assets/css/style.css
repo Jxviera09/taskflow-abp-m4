@@ -1,0 +1,17 @@
+/* Resaltado de la fila al pasar el cursor (evento mouseover) */
+.fila-activa {
+    background-color: #fff3cd;
+    transition: background-color 0.2s ease;
+}
+
+/* Contenedor de notificaciones dinámicas (esquina superior derecha) */
+#contenedor-notificaciones {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1080;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
