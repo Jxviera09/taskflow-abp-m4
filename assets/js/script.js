@@ -18,9 +18,12 @@ const crearFilaTabla = (tarea) => {
             ? `<span class="badge-limite" data-fecha-limite="${fechaLimite}">...</span>`
             : "—";
 
+    // Mostramos solo los primeros caracteres del ID (el completo va en el title)
+    const idCorto = `#${id.slice(0, 8)}`;
+
     return `
         <tr>
-            <th scope="row" title="${id}">${id}</th>
+            <th scope="row" title="${id}">${idCorto}</th>
             <td>${descripcion}</td>
             <td>
                 <span class="badge-estado ${badgeEstado}">${estadoStr}</span>
@@ -179,31 +182,31 @@ formAddTarea.addEventListener("submit", async (event) => {
         console.error(error);
     } finally {
         boton.disabled = false;
-        boton.textContent = "Agregar Tarea";
+        boton.textContent = "✿ Agregar Tarea";
     }
 });
 
 // ---------------------------------------------------------------------------
-// EVENTO IMPORTAR TAREAS DESDE LA API (fetch GET)
+// EVENTO SINCRONIZAR CON LA API (fetch GET) — demuestra el consumo de la API
 // ---------------------------------------------------------------------------
 
-const btnImportarApi = document.getElementById("btn-importar-api");
+const btnSyncApi = document.getElementById("btn-sync-api");
 
-btnImportarApi.addEventListener("click", async () => {
+btnSyncApi.addEventListener("click", async () => {
+    const textoOriginal = btnSyncApi.textContent;
     try {
-        btnImportarApi.disabled = true;
-        btnImportarApi.textContent = "Importando...";
+        btnSyncApi.disabled = true;
+        btnSyncApi.textContent = "Sincronizando...";
 
-        const cantidad = await gestorTareas.importarDesdeApi(5);
-        await actualizarTabla();
+        const cantidad = await gestorTareas.sincronizarConApi(10);
 
-        mostrarNotificacion("success", `Se importaron ${cantidad} tareas desde la API 🌐`);
+        mostrarNotificacion("success", `Conectado con la API ✓ (${cantidad} tareas recuperadas)`);
     } catch (error) {
-        mostrarNotificacion("danger", "No se pudieron importar las tareas.");
+        mostrarNotificacion("danger", "No se pudo conectar con la API.");
         console.error(error);
     } finally {
-        btnImportarApi.disabled = false;
-        btnImportarApi.textContent = "☁ Importar desde API";
+        btnSyncApi.disabled = false;
+        btnSyncApi.textContent = textoOriginal;
     }
 });
 

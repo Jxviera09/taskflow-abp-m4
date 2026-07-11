@@ -111,89 +111,141 @@ body {
     color: var(--texto-suave);
 }
 
-/* ------------------------- BOTONES estilo Uiverse ------------------------ */
+/* --------------- BOTONES 3D estilo Uiverse (by Madflows) ----------------- */
+/* Efecto "push": el botón se hunde sobre su base al pasar el mouse / clickear.
+   Cada botón define sus colores con variables (--face, --under, --edge...).   */
 
-.btn-lindo {
-    border: none;
-    border-radius: 999px;
-    padding: 0.65rem 1.5rem;
+.btn-3d,
+.btn-finalizar,
+.btn-eliminar {
+    --lift: 0.65em;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    border: 2px solid var(--edge);
+    border-radius: 0.75em;
+    background: var(--face);
+    color: var(--ink);
     font-family: 'Quicksand', sans-serif;
     font-weight: 700;
     font-size: 0.95rem;
-    color: #fff;
-    cursor: pointer;
-    box-shadow: var(--sombra-boton);
-    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+    padding: 0.8em 1.5em;
+    transform-style: preserve-3d;
+    transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
+        background 150ms cubic-bezier(0, 0, 0.58, 1);
 }
 
-.btn-lindo:hover {
-    transform: translateY(-3px) scale(1.03);
-    filter: brightness(1.05);
-    box-shadow: 0 10px 20px rgba(255, 126, 179, 0.45);
+.btn-3d::before,
+.btn-finalizar::before,
+.btn-eliminar::before {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: var(--under);
+    border-radius: inherit;
+    box-shadow: 0 0 0 2px var(--edge), 0 var(--lift) 0 0 var(--shadow);
+    transform: translate3d(0, var(--lift), -1em);
+    transition: transform 150ms cubic-bezier(0, 0, 0.58, 1),
+        box-shadow 150ms cubic-bezier(0, 0, 0.58, 1);
 }
 
-.btn-lindo:active {
-    transform: translateY(-1px) scale(0.99);
+.btn-3d:hover,
+.btn-finalizar:hover,
+.btn-eliminar:hover {
+    background: var(--face);
+    transform: translate(0, calc(var(--lift) * 0.34));
 }
 
-.btn-lindo:disabled {
-    background: #f0d9e4 !important;
-    color: #c9a7ba !important;
-    box-shadow: none;
-    cursor: not-allowed;
-    transform: none;
-    filter: none;
+.btn-3d:hover::before,
+.btn-finalizar:hover::before,
+.btn-eliminar:hover::before {
+    box-shadow: 0 0 0 2px var(--edge), 0 calc(var(--lift) * 0.66) 0 0 var(--shadow);
+    transform: translate3d(0, calc(var(--lift) * 0.66), -1em);
 }
 
+.btn-3d:active,
+.btn-finalizar:active,
+.btn-eliminar:active {
+    transform: translate(0, var(--lift));
+}
+
+.btn-3d:active::before,
+.btn-finalizar:active::before,
+.btn-eliminar:active::before {
+    box-shadow: 0 0 0 2px var(--edge), 0 0 var(--shadow);
+    transform: translate3d(0, 0, -1em);
+}
+
+/* Colores por botón */
 .btn-agregar {
-    background: linear-gradient(135deg, #ff9ec4, #ff7eb3);
+    --face: #fff0f6;
+    --under: #f9c4d2;
+    --edge: #d98cae;
+    --shadow: #ffe3ef;
+    --ink: #8a3a5f;
 }
 
 .btn-importar {
-    background: linear-gradient(135deg, #a9e0e3, #7fcbd6);
-    box-shadow: 0 6px 14px rgba(127, 203, 214, 0.4);
-}
-
-.btn-importar:hover {
-    box-shadow: 0 10px 20px rgba(127, 203, 214, 0.5);
-}
-
-/* Botones dentro de la tabla (más pequeños) */
-.btn-finalizar,
-.btn-eliminar {
-    border: none;
-    border-radius: 999px;
-    padding: 0.4rem 1rem;
-    font-weight: 700;
-    font-size: 0.85rem;
-    color: #fff;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(255, 126, 179, 0.25);
-    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-    margin: 0.15rem 0;
+    --face: #eafbfc;
+    --under: #bfe9ed;
+    --edge: #7fbfc9;
+    --shadow: #dbf3f5;
+    --ink: #2f7d86;
 }
 
 .btn-finalizar {
-    background: linear-gradient(135deg, #c4f0dd, #7fd1ae);
-    color: #2f7d5b;
+    --face: #effaf4;
+    --under: #c4f0dd;
+    --edge: #7fcea8;
+    --shadow: #dcf6ea;
+    --ink: #2f7d5b;
+    --lift: 0.4em;
+    font-size: 0.82rem;
+    padding: 0.5em 1em;
+    margin: 0 0.25rem 0.6rem 0;
 }
 
 .btn-eliminar {
-    background: linear-gradient(135deg, #ffc2c7, #ff6b81);
+    --face: #fff1f2;
+    --under: #ffc7cc;
+    --edge: #e58f99;
+    --shadow: #ffe1e4;
+    --ink: #a83d4b;
+    --lift: 0.4em;
+    font-size: 0.82rem;
+    padding: 0.5em 1em;
+    margin: 0 0.25rem 0.6rem 0;
 }
 
-.btn-finalizar:hover,
-.btn-eliminar:hover {
-    transform: translateY(-2px) scale(1.04);
-    filter: brightness(1.04);
+/* Botón discreto para sincronizar con la API (color lila) */
+.btn-sync {
+    --face: #f3eefc;
+    --under: #dcc9f5;
+    --edge: #b79ce0;
+    --shadow: #ece1f9;
+    --ink: #6b4e9e;
+    --lift: 0.4em;
+    font-size: 0.82rem;
+    padding: 0.55em 1.2em;
 }
 
-.btn-finalizar.disabled {
-    background: #e9e3e6;
-    color: #b7abb2;
-    box-shadow: none;
+/* Estado deshabilitado (grisáceo, sin movimiento) */
+.btn-3d:disabled,
+.btn-3d.disabled,
+.btn-finalizar.disabled,
+.btn-eliminar.disabled {
+    --face: #f0e4ea;
+    --under: #e2d3db;
+    --edge: #cbb3c0;
+    --shadow: #efe3ea;
+    --ink: #bda7b5;
     cursor: not-allowed;
     pointer-events: none;
+    transform: none;
 }
 
 /* ------------------------------- STATS ----------------------------------- */
@@ -202,6 +254,9 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 0.7rem;
+}
+
+.acciones-row {
     margin-top: 1.4rem;
 }
 

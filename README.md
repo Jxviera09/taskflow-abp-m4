@@ -11,7 +11,9 @@ desarrollada con **JavaScript moderno (ES6+)**. Proyecto de evaluación del Mód
 - **Fecha límite opcional** con **contador regresivo** que se actualiza cada segundo.
 - **Notificaciones** dinámicas al agregar/finalizar/eliminar.
 - **Persistencia** en `localStorage` (los datos se conservan al recargar).
-- **Consumo de API** externa (JSONPlaceholder) para obtener y guardar tareas.
+- **Consumo de API** externa (JSONPlaceholder): cada tarea se guarda con un `POST`
+  (`guardarEnApi`) y existe una función para recuperarlas con `GET` (`getDataApi`).
+- **Diseño propio** rosita pastel con botones 3D animados y tipografías redondeadas.
 
 ## 🛠️ Tecnologías
 
@@ -52,7 +54,7 @@ directamente (`file://`). Necesita un servidor local:
 | **ES6+** | `let`/`const`, template literals, arrow functions, destructuring, spread/rest. |
 | **Eventos y DOM** | `submit`, `click`, `keyup` (contador de caracteres) y `mouseover` (resaltado de filas). |
 | **Asincronía** | `setTimeout` (retardo al agregar + notificación) y `setInterval` (contador regresivo). |
-| **Consumo de API** | `fetch` GET y POST a JSONPlaceholder + `localStorage`, con manejo de errores `try/catch`. |
+| **Consumo de API** | `fetch` GET (`getDataApi`) y POST (`guardarEnApi`) a JSONPlaceholder + `localStorage`, con manejo de errores `try/catch`. |
 
 ---
 

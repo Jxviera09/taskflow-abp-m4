@@ -31,39 +31,41 @@
 
     <header class="hero text-center">
         <h1 class="hero-title">🎀 My To-Do List 🎀</h1>
-        <p class="hero-subtitle">Organiza tu día con estilo ✨🌸</p>
+        <p class="hero-subtitle">✨Organiza tu día✨</p>
     </header>
 
     <main class="container pb-5">
 
         <section class="card-rosa">
-            <h2 class="titulo-seccion">🌷 Agrega una nueva tarea</h2>
+            <h2 class="titulo-seccion">🌷 Agrega una nueva tarea 🌷</h2>
             <form id="form-add-tarea">
                 <div class="mb-3">
-                    <label for="input-descripcion-tarea" class="form-label">Descripción</label>
+                    <label for="input-descripcion-tarea" class="form-label">🌸 Descripción</label>
                     <input type="text" class="form-control" name="descripcion" id="input-descripcion-tarea"
                         placeholder="¿Qué tienes que hacer hoy?..." required>
                     <small class="contador" id="contador-caracteres">0 caracteres</small>
                 </div>
                 <div class="mb-3">
-                    <label for="input-fecha-limite" class="form-label">Fecha límite (opcional)</label>
+                    <label for="input-fecha-limite" class="form-label">🌸 Fecha límite (opcional)</label>
                     <input type="date" class="form-control" name="fechaLimite" id="input-fecha-limite">
                 </div>
-                <div class="d-flex flex-wrap gap-2">
-                    <button type="submit" class="btn-lindo btn-agregar">✿ Agregar Tarea</button>
-                    <button type="button" class="btn-lindo btn-importar" id="btn-importar-api">☁ Importar desde API</button>
+                <div class="acciones-row d-flex flex-wrap justify-content-between align-items-center gap-3">
+                    <div class="stats-wrapper">
+                        <span class="stat-pill stat-total">Totales: <b id="stat-totales">0</b></span>
+                        <span class="stat-pill stat-ok">Finalizadas: <b id="stat-finalizadas">0</b></span>
+                        <span class="stat-pill stat-pend">Pendientes: <b id="stat-pendientes">0</b></span>
+                    </div>
+                    <button type="submit" class="btn-3d btn-agregar">✿ Agregar Tarea</button>
                 </div>
             </form>
-
-            <div class="stats-wrapper">
-                <span class="stat-pill stat-total">Totales: <b id="stat-totales">0</b></span>
-                <span class="stat-pill stat-ok">Finalizadas: <b id="stat-finalizadas">0</b></span>
-                <span class="stat-pill stat-pend">Pendientes: <b id="stat-pendientes">0</b></span>
-            </div>
         </section>
 
         <section class="card-rosa">
-            <h2 class="titulo-seccion text-center">🐱 Listado de tareas</h2>
+            <h2 class="titulo-seccion text-center">💖 Listado de tareas 💖</h2>
+
+            <div class="text-center mb-3">
+                <button type="button" class="btn-3d btn-sync" id="btn-sync-api">🔄 Sincronizar con API</button>
+            </div>
 
             <div class="tabla-scroll">
                 <table class="table tabla-tareas d-none" id="tabla-tareas">
@@ -90,7 +92,7 @@
     </main>
 
     <footer class="text-center pb-4">
-        Hecho con 💖 por Javiera Saavedra
+        Made for Javiera Saavedra
     </footer>
 
     <!-- Contenedor de notificaciones dinámicas -->

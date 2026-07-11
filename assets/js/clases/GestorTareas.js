@@ -75,11 +75,10 @@ class GestorTareas {
         return [...this.tareas].reverse(); // spread: copiamos sin mutar el original
     }
 
-    // Importar tareas desde la API externa (fetch GET) y agregarlas a la lista
-    async importarDesdeApi(limit = 5) {
+    // Consulta la API externa (fetch GET) y devuelve cuántas tareas hay disponibles,
+    // SIN modificar la lista local. Sirve para demostrar el consumo de la API.
+    async sincronizarConApi(limit = 10) {
         const tareasApi = await getDataApi(limit);
-        this.tareas = [...tareasApi, ...this.tareas]; // spread para combinar ambas listas
-        this.#guardarEnStorage();
         return tareasApi.length;
     }
 
