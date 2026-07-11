@@ -75,6 +75,33 @@ class GestorTareas {
         return [...this.tareas].reverse(); // spread: copiamos sin mutar el original
     }
 
+    // Importar tareas desde la API externa (fetch GET) y agregarlas a la lista
+    async importarDesdeApi(limit = 5) {
+        const tareasApi = await getDataApi(limit);
+        this.tareas = [...tareasApi, ...this.tareas]; // spread para combinar ambas listas
+        this.#guardarEnStorage();
+        return tareasApi.length;
+    }
+
+    // Tareas de ejemplo (se muestran la primera vez, en vez de datos "lorem ipsum")
+    tareasDeEjemplo() {
+        const ejemplos = [
+            { desc: "Terminar el proyecto ABP del Módulo 4", estado: false, dias: 2 },
+            { desc: "Actualizar mi portafolio en GitHub", estado: false, dias: 5 },
+            { desc: "Estudiar async/await y promesas", estado: false, dias: null },
+            { desc: "Practicar ejercicios de arrays y objetos", estado: false, dias: null },
+            { desc: "Repasar POO en JavaScript", estado: true, dias: null },
+            { desc: "Configurar Live Server en VS Code", estado: true, dias: null },
+        ];
+
+        return ejemplos.map(({ desc, estado, dias }) => {
+            const fechaLimite = dias ? moment().add(dias, "days").format("YYYY-MM-DD") : null;
+            const tarea = new Tarea(desc, fechaLimite);
+            tarea.estado = estado;
+            return tarea;
+        });
+    }
+
     obtenerTareaPorId(id) {
         return this.tareas.find((tarea) => tarea.id === id) || null;
     }
@@ -121,9 +148,9 @@ class GestorTareas {
                 .filter((obj) => obj && obj.id && obj.descripcion)
                 .map((obj) => Tarea.desdeObjeto(obj));
 
-            this.tareas = validas.length ? validas : await getDataApi(15);
+            this.tareas = validas.length ? validas : this.tareasDeEjemplo();
         } else {
-            this.tareas = await getDataApi(15);
+            this.tareas = this.tareasDeEjemplo();
         }
     }
 

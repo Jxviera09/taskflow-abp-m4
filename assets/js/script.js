@@ -10,26 +10,26 @@ const crearFilaTabla = (tarea) => {
 
     const estadoStr = estado ? "Finalizado" : "Pendiente";
     const disabled = estado ? "disabled" : "";
-    const badge = estado ? "success" : "warning";
+    const badgeEstado = estado ? "badge-finalizado" : "badge-pendiente";
 
     // Si la tarea tiene fecha límite y sigue pendiente, mostramos un contador
     const celdaLimite =
         fechaLimite && !estado
-            ? `<span class="badge text-bg-info" data-fecha-limite="${fechaLimite}">...</span>`
-            : "-";
+            ? `<span class="badge-limite" data-fecha-limite="${fechaLimite}">...</span>`
+            : "—";
 
     return `
         <tr>
-            <th scope="row">${id}</th>
+            <th scope="row" title="${id}">${id}</th>
             <td>${descripcion}</td>
             <td>
-                <span class="badge rounded-pill text-bg-${badge}">${estadoStr}</span>
+                <span class="badge-estado ${badgeEstado}">${estadoStr}</span>
             </td>
             <td>${fechaCreacion}</td>
             <td>${celdaLimite}</td>
             <td>
-                <button class="btn btn-warning btn-finalizar ${disabled}" data-id="${id}">Finalizar</button>
-                <button class="btn btn-danger btn-eliminar" data-id="${id}">Eliminar</button>
+                <button class="btn-finalizar ${disabled}" data-id="${id}">✓ Finalizar</button>
+                <button class="btn-eliminar" data-id="${id}">✕ Eliminar</button>
             </td>
         </tr>
     `;
@@ -92,7 +92,7 @@ const mostrarNotificacion = (tipo, ...mensajes) => {
     const texto = mensajes.join(" ");
 
     const notificacion = document.createElement("div");
-    notificacion.className = `alert alert-${tipo} shadow`;
+    notificacion.className = `noti noti-${tipo}`;
     notificacion.setAttribute("role", "alert");
     notificacion.textContent = texto;
 
@@ -116,7 +116,7 @@ const actualizarContadores = () => {
 
         if (diferencia <= 0) {
             span.textContent = "¡Vencida!";
-            span.className = "badge text-bg-danger";
+            span.className = "badge-limite badge-vencida";
             return;
         }
 
@@ -180,6 +180,30 @@ formAddTarea.addEventListener("submit", async (event) => {
     } finally {
         boton.disabled = false;
         boton.textContent = "Agregar Tarea";
+    }
+});
+
+// ---------------------------------------------------------------------------
+// EVENTO IMPORTAR TAREAS DESDE LA API (fetch GET)
+// ---------------------------------------------------------------------------
+
+const btnImportarApi = document.getElementById("btn-importar-api");
+
+btnImportarApi.addEventListener("click", async () => {
+    try {
+        btnImportarApi.disabled = true;
+        btnImportarApi.textContent = "Importando...";
+
+        const cantidad = await gestorTareas.importarDesdeApi(5);
+        await actualizarTabla();
+
+        mostrarNotificacion("success", `Se importaron ${cantidad} tareas desde la API 🌐`);
+    } catch (error) {
+        mostrarNotificacion("danger", "No se pudieron importar las tareas.");
+        console.error(error);
+    } finally {
+        btnImportarApi.disabled = false;
+        btnImportarApi.textContent = "☁ Importar desde API";
     }
 });
 

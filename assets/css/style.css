@@ -1,10 +1,365 @@
-/* Resaltado de la fila al pasar el cursor (evento mouseover) */
-.fila-activa {
-    background-color: #fff3cd;
-    transition: background-color 0.2s ease;
+/* ===========================================================================
+   🎀 TASKFLOW — Tema rosita pastel estilo Hello Kitty
+   =========================================================================== */
+
+:root {
+    --rosa-fuerte: #ff7eb3;
+    --rosa: #ffa5c9;
+    --rosa-suave: #ffd6e8;
+    --rosa-clarito: #fff2f7;
+    --menta: #b8e9d4;
+    --menta-fuerte: #63c9a0;
+    --coral: #ffb3ba;
+    --coral-fuerte: #ff6b81;
+    --celeste: #b5e3e6;
+    --celeste2: #a9e0e3;
+    --lila: #d7c3f7;
+    --amarillo: #ffe0a3;
+    --texto: #7a4a63;
+    --texto-suave: #b087a0;
+    --blanco-card: #fffafc;
+    --sombra-rosa: 0 8px 24px rgba(255, 126, 179, 0.22);
+    --sombra-boton: 0 6px 14px rgba(255, 126, 179, 0.35);
 }
 
-/* Contenedor de notificaciones dinámicas (esquina superior derecha) */
+* {
+    font-family: 'Quicksand', sans-serif;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(160deg, #fff0f6 0%, #ffe4f0 45%, #f3e8ff 100%);
+    background-attachment: fixed;
+    color: var(--texto);
+    min-height: 100vh;
+}
+
+/* ------------------------------- HERO / HEADER --------------------------- */
+
+.hero {
+    padding: 2.5rem 1rem 1.5rem;
+}
+
+.hero-title {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 700;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--rosa-fuerte);
+    text-shadow: 2px 2px 0 #fff, 4px 4px 0 rgba(255, 165, 201, 0.4);
+    margin: 0;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--texto-suave);
+    margin-top: 0.4rem;
+}
+
+/* ------------------------------- CARDS ----------------------------------- */
+
+.card-rosa {
+    background: var(--blanco-card);
+    border-radius: 28px;
+    padding: 1.8rem;
+    margin-bottom: 1.8rem;
+    box-shadow: var(--sombra-rosa);
+    border: 2px solid #ffe3ef;
+}
+
+.titulo-seccion {
+    font-family: 'Baloo 2', cursive;
+    font-weight: 600;
+    color: var(--rosa-fuerte);
+    margin-bottom: 1.2rem;
+}
+
+/* ------------------------------- FORMULARIO ------------------------------ */
+
+.form-label {
+    font-weight: 600;
+    color: var(--texto);
+    margin-bottom: 0.3rem;
+}
+
+.form-control {
+    border: 2px solid var(--rosa-suave);
+    border-radius: 16px;
+    padding: 0.7rem 1rem;
+    background: #fff;
+    color: var(--texto);
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.form-control::placeholder {
+    color: #d9b3c8;
+}
+
+.form-control:focus {
+    border-color: var(--rosa-fuerte);
+    box-shadow: 0 0 0 0.25rem rgba(255, 126, 179, 0.2);
+    background: #fff;
+    color: var(--texto);
+}
+
+.contador {
+    display: inline-block;
+    margin-top: 0.35rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--texto-suave);
+}
+
+/* ------------------------- BOTONES estilo Uiverse ------------------------ */
+
+.btn-lindo {
+    border: none;
+    border-radius: 999px;
+    padding: 0.65rem 1.5rem;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: var(--sombra-boton);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.btn-lindo:hover {
+    transform: translateY(-3px) scale(1.03);
+    filter: brightness(1.05);
+    box-shadow: 0 10px 20px rgba(255, 126, 179, 0.45);
+}
+
+.btn-lindo:active {
+    transform: translateY(-1px) scale(0.99);
+}
+
+.btn-lindo:disabled {
+    background: #f0d9e4 !important;
+    color: #c9a7ba !important;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+    filter: none;
+}
+
+.btn-agregar {
+    background: linear-gradient(135deg, #ff9ec4, #ff7eb3);
+}
+
+.btn-importar {
+    background: linear-gradient(135deg, #a9e0e3, #7fcbd6);
+    box-shadow: 0 6px 14px rgba(127, 203, 214, 0.4);
+}
+
+.btn-importar:hover {
+    box-shadow: 0 10px 20px rgba(127, 203, 214, 0.5);
+}
+
+/* Botones dentro de la tabla (más pequeños) */
+.btn-finalizar,
+.btn-eliminar {
+    border: none;
+    border-radius: 999px;
+    padding: 0.4rem 1rem;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 126, 179, 0.25);
+    transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+    margin: 0.15rem 0;
+}
+
+.btn-finalizar {
+    background: linear-gradient(135deg, #c4f0dd, #7fd1ae);
+    color: #2f7d5b;
+}
+
+.btn-eliminar {
+    background: linear-gradient(135deg, #ffc2c7, #ff6b81);
+}
+
+.btn-finalizar:hover,
+.btn-eliminar:hover {
+    transform: translateY(-2px) scale(1.04);
+    filter: brightness(1.04);
+}
+
+.btn-finalizar.disabled {
+    background: #e9e3e6;
+    color: #b7abb2;
+    box-shadow: none;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ------------------------------- STATS ----------------------------------- */
+
+.stats-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin-top: 1.4rem;
+}
+
+.stat-pill {
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.92rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.stat-pill b {
+    font-family: 'Baloo 2', cursive;
+}
+
+.stat-total {
+    background: var(--rosa-suave);
+    color: var(--rosa-fuerte);
+}
+
+.stat-ok {
+    background: #d6f5e7;
+    color: var(--menta-fuerte);
+}
+
+.stat-pend {
+    background: var(--amarillo);
+    color: #c98a1e;
+}
+
+/* ------------------------------- TABLA ----------------------------------- */
+
+.tabla-scroll {
+    overflow-x: auto;
+}
+
+.tabla-tareas {
+    border-collapse: separate;
+    border-spacing: 0 0.55rem;
+    margin-top: 0.5rem;
+}
+
+.tabla-tareas thead th {
+    background: var(--rosa-fuerte);
+    color: #fff;
+    font-family: 'Baloo 2', cursive;
+    font-weight: 600;
+    border: none;
+    padding: 0.85rem 1rem;
+    white-space: nowrap;
+}
+
+.tabla-tareas thead th:first-child {
+    border-radius: 14px 0 0 14px;
+}
+
+.tabla-tareas thead th:last-child {
+    border-radius: 0 14px 14px 0;
+}
+
+.tabla-tareas tbody tr {
+    background: #fff;
+    box-shadow: 0 3px 10px rgba(255, 126, 179, 0.12);
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.tabla-tareas tbody td,
+.tabla-tareas tbody th {
+    border: none;
+    vertical-align: middle;
+    padding: 0.75rem 1rem;
+    color: var(--texto);
+    font-weight: 500;
+    background: transparent;
+}
+
+.tabla-tareas tbody td:first-child,
+.tabla-tareas tbody th:first-child {
+    border-radius: 14px 0 0 14px;
+}
+
+.tabla-tareas tbody td:last-child {
+    border-radius: 0 14px 14px 0;
+}
+
+/* La ID (UUID) es larga: la mostramos corta y elegante */
+.tabla-tareas tbody th[scope="row"] {
+    font-family: monospace;
+    font-size: 0.78rem;
+    color: var(--texto-suave);
+    max-width: 90px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Resaltado de la fila al pasar el cursor (evento mouseover) */
+.fila-activa {
+    background: var(--rosa-clarito) !important;
+    transform: scale(1.005);
+}
+
+/* --------------------------- BADGES / ETIQUETAS -------------------------- */
+
+.badge-estado {
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+.badge-finalizado {
+    background: #d6f5e7;
+    color: var(--menta-fuerte);
+}
+
+.badge-pendiente {
+    background: var(--amarillo);
+    color: #c98a1e;
+}
+
+.badge-limite {
+    display: inline-block;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    background: #d9f2f4;
+    color: #3b9aa3;
+    font-weight: 700;
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
+.badge-vencida {
+    background: #ffe0e3;
+    color: var(--coral-fuerte);
+}
+
+/* ------------------------------- ALERTA VACÍA ---------------------------- */
+
+.alert-vacio {
+    text-align: center;
+    background: var(--rosa-suave);
+    color: var(--rosa-fuerte);
+    font-weight: 600;
+    border-radius: 20px;
+    padding: 1.5rem;
+    border: 2px dashed var(--rosa);
+}
+
+/* ------------------------------- FOOTER ---------------------------------- */
+
+footer {
+    color: var(--texto-suave);
+    font-weight: 600;
+}
+
+/* --------------------------- NOTIFICACIONES ------------------------------ */
+
 #contenedor-notificaciones {
     position: fixed;
     top: 1rem;
@@ -13,5 +368,38 @@
     max-width: 320px;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.6rem;
+}
+
+.noti {
+    padding: 0.9rem 1.2rem;
+    border-radius: 18px;
+    font-weight: 600;
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    animation: entrar 0.35s ease;
+}
+
+.noti-success {
+    background: linear-gradient(135deg, #8fe0bd, #63c9a0);
+}
+
+.noti-danger {
+    background: linear-gradient(135deg, #ff9aa2, #ff6b81);
+}
+
+.noti-warning {
+    background: linear-gradient(135deg, #ffcf8f, #ffb347);
+}
+
+@keyframes entrar {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
